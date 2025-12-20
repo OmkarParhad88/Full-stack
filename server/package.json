@@ -8,7 +8,13 @@
     "dev": "bun run src/index.ts",
     "watch": "bun --watch src/index.ts",
     "hot": "bun --hot src/index.ts",
-    "build": "bun build src/index.ts --out-dir dist"
+    "build": "bun build src/index.ts --out-dir dist",
+    "generate": "prisma generate",
+    "db": "prisma db",
+    "db:pull": "prisma db pull",
+    "db:push": "prisma db push",
+    "db:seed": "prisma db seed",
+    "prisma:migrate": "prisma migrate dev --name init"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -20,6 +26,12 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "dotenv": "^17.2.3"
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^7.2.0",
+    "@types/node": "^25.0.3",
+    "@types/pg": "^8.16.0",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3",
+    "prisma": "^7.2.0"
   }
 }
