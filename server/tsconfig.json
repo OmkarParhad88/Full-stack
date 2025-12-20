@@ -9,6 +9,9 @@
     "allowJs": true,
     "outDir": "dist",
     "rootDir": "src",
+    "types": [
+      "bun-types"
+    ],
 
     // Bundler mode
     "moduleResolution": "bundler",
@@ -27,5 +30,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
-  }
+  },
+  "include": [
+    "src"
+  ]
 }

@@ -8,7 +8,7 @@
     "dev": "bun run src/index.ts",
     "watch": "bun --watch src/index.ts",
     "hot": "bun --hot src/index.ts",
-    "build": "bun build src/index.ts --out-dir dist",
+    "build": "bun run build.ts",
     "generate": "prisma generate",
     "db": "prisma db",
     "db:pull": "prisma db pull",
@@ -17,7 +17,7 @@
     "prisma:migrate": "prisma migrate dev --name init"
   },
   "devDependencies": {
-    "@types/bun": "latest",
+    "@types/bun": "^1.3.5",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "express": "^5.2.1"
@@ -31,6 +31,8 @@
     "@types/node": "^25.0.3",
     "@types/pg": "^8.16.0",
     "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "nodemailer": "^7.0.11",
     "pg": "^8.16.3",
     "prisma": "^7.2.0"
   }

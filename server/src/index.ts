@@ -1,13 +1,23 @@
 import express, { type Application, type Request, type Response } from "express";
 import "dotenv/config";
 
+
+const __dirname = import.meta.dir;
+// That's it! No imports needed.
+
 const app: Application = express();
 const PORT = process.env.PORT || 7000;
 
+//middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+//set view engine
+app.set("view engine", "ejs");
+app.set("views", `${import.meta.dir}/views`);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.render("welcome");
 });
 
 app.listen(PORT, () => {
