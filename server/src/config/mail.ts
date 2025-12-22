@@ -17,12 +17,12 @@ const options: SMTPTransport.Options = {
 
 export const transporter = nodemailer.createTransport(options);
 
-export const sendMail = async (to: string, subject: string, body: string) => {
+export const sendMail = async (to: string, subject: string, html: string) => {
   const mailOptions = {
     from: `"EXPRESS" <${process.env.SMTP_FROM}>`,
     to: to,
     subject: subject,
-    html: body
+    html: html
   };
 
   try {

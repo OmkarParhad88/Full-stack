@@ -20,11 +20,9 @@ app.set("view engine", "ejs");
 app.set("views", `${import.meta.dir}/views`);
 
 app.get("/", async (req: Request, res: Response) => {
-  // const html = await ejs.renderFile(`${import.meta.dir}/views/emails/welcome.ejs`, { name: "Omkar" });
-  // await sendMail("omkarparhad7905@gmail.com", "Welcome", html);
-  // res.send(html);
-  await emailQueue.add(emailQueueName, { name: "Omkar", age: 22 });
-  return res.send("Hello World!");
+  const html = await ejs.renderFile(`${import.meta.dir}/views/emails/welcome.ejs`, { name: "Omkar" });
+  await emailQueue.add(emailQueueName, { to: "omkarparhad7905@gmail.com", subject: "Welcome", html });
+  return res.send("Email added to queue");
 });
 
 app.listen(PORT, () => {
