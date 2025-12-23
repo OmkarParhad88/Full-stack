@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+import Register from '@/components/auth/Register'
 
 export default function register() {
   return (
@@ -12,21 +10,7 @@ export default function register() {
         <div className='w-2xl h-full flex flex-col justify-center items-start p-1'>
           <h1 className='text-2xl font-bold'>Register</h1>
           <p>Sign in to your account</p>
-          <form action="" className='w-full'>
-            <div className='my-4'>
-              <Label htmlFor="name" className='mb-2'>Name</Label>
-              <Input id="name" type="text" placeholder='Enter your name' />
-            </div>
-            <div className='my-4'>
-              <Label htmlFor="email" className='mb-2'>Email</Label>
-              <Input id="email" type="email" placeholder='Enter your email' />
-            </div>
-            <div className='my-4'>
-              <Label htmlFor="password" className='mb-2'>Password</Label>
-              <Input id="password" type="password" placeholder='Enter your password' />
-            </div>
-            <Button type="submit">Register</Button>
-          </form>
+          <Register />
         </div>
       </div>
       <div className='w-full text-center my-2'>
