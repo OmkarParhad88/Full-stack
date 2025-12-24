@@ -5,7 +5,7 @@ import { emailQueue, emailQueueName } from "./jobs/EmailJob";
 import router from "./routes";
 import { renderEmail } from "./views/helper";
 import path from "path";
-
+import { GlobalRateLimitter } from "./config/rate-limit";
 const app: Application = express();
 const PORT = process.env.PORT || 8000;
 
@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router);
+app.use(GlobalRateLimitter);
 
 //set view engine
 app.set("view engine", "ejs");

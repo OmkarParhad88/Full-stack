@@ -1,9 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+import Login from '@/components/auth/Login'
 
 export default function login() {
   return (
@@ -13,20 +11,7 @@ export default function login() {
         <div className='w-2xl h-full flex flex-col justify-center items-start p-1'>
           <h1 className='text-2xl font-bold'>Login</h1>
           <p>Sign in to your account</p>
-          <form action="" className='w-full'>
-            <div className='my-4'>
-              <Label htmlFor="email" className='mb-2'>Email</Label>
-              <Input id="email" type="email" placeholder='Enter your email' />
-            </div>
-            <div className='my-4'>
-              <Label htmlFor="password" className='mb-2'>Password</Label>
-              <Input id="password" type="password" placeholder='Enter your password' />
-              <div className='w-full text-right my-2'>
-                <Link href="/forgot-password" >Forgot Password?</Link>
-              </div>
-            </div>
-            <Button type="submit">Login</Button>
-          </form>
+          <Login />
         </div>
       </div>
       <div className='w-full text-center my-2'>

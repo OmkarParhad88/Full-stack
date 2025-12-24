@@ -1,6 +1,5 @@
 "use server"
-
-import { REGISTER_URL } from "@/lib/apiEndPoints";
+import { CHECK_CREDENTIALS_URL, REGISTER_URL } from "@/lib/apiEndPoints";
 import axios, { AxiosError } from "axios";
 
 export const registerActions = async (prevState: any, formData: FormData) => {
@@ -9,17 +8,6 @@ export const registerActions = async (prevState: any, formData: FormData) => {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
-
-    // if (!name || !email || !password || !confirmPassword) {
-    //   throw new Error("All fields are required");
-    // }
-
-    // if (password !== confirmPassword) {
-    //   throw new Error("Passwords do not match");
-    // }
-
-    // console.log(name, email, password, confirmPassword);
-
 
     const user = await axios.post(REGISTER_URL, {
       name,
@@ -36,12 +24,11 @@ export const registerActions = async (prevState: any, formData: FormData) => {
       }
     }
 
-
   } catch (error) {
     console.log(error);
     if (error instanceof AxiosError)
       return {
-        status: error.status,
+        status: error.response?.status || 500,
         message: error.message,
         errors: error.response?.data.errors,
       }
@@ -51,11 +38,44 @@ export const registerActions = async (prevState: any, formData: FormData) => {
         message: "Internal Server Error",
         errors: error,
       }
-
   }
-
 }
 
 export const loginActions = async (prevState: any, formData: FormData) => {
+  try {
+    const email = formData.get("email");
+    const password = formData.get("password");
 
+    const data = await axios.post(CHECK_CREDENTIALS_URL, {
+      email,
+      password,
+    });
+    if (data.status === 200) {
+      return {
+        status: 200,
+        message: data.data?.message,
+        errors: data.data?.errors,
+        data: {
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    if (error instanceof AxiosError)
+      return {
+        status: error.response?.status || 500,
+        message: error.message,
+        errors: error.response?.data.errors,
+        data: {}
+      }
+    else
+      return {
+        status: 500,
+        message: "Internal Server Error",
+        errors: error,
+        data: {}
+      }
+  }
 }
