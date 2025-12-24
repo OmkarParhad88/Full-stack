@@ -1,24 +1,20 @@
 "use client"
 
 import { useEffect } from 'react'
-import Link from 'next/link'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { SubmitButton } from '../common/SubmitButton'
 import { toast } from 'sonner'
 import { useFormState } from 'react-dom'
-import { loginActions } from '@/actions/authActions'
-import { signIn } from 'next-auth/react'
+import { forgetPasswordActions } from '@/actions/authActions'
 
-
-export default function Login() {
+export default function ForgetPassword() {
   const initialState = {
     status: 0,
     message: '',
     errors: {},
-    data: {}
   }
-  const [state, formAction] = useFormState(loginActions, initialState)
+  const [state, formAction] = useFormState(forgetPasswordActions, initialState)
 
   useEffect(() => {
     if (state!.status === 500) {
@@ -32,12 +28,7 @@ export default function Login() {
     }
     if (state!.status === 200) {
       toast.success(state!.message)
-      signIn("credentials", {
-        email: state!.data.email,
-        password: state!.data.password,
-        redirect: true,
-        callbackUrl: "/dashboard"
-      })
+
     }
   }, [state])
   return (
@@ -46,14 +37,6 @@ export default function Login() {
         <Label htmlFor="email" className='mb-2'>Email</Label>
         <Input id="email" type="email" name="email" placeholder='Enter your email' />
         <span className='text-red-500'>{state!.errors?.email}</span>
-      </div>
-      <div className='my-4'>
-        <Label htmlFor="password" className='mb-2'>Password</Label>
-        <Input id="password" type="password" name="password" placeholder='Enter your password' />
-        <span className='text-red-500'>{state!.errors?.password}</span>
-        <div className='w-full text-right my-2'>
-          <Link href="/forget-password" >Forgot Password?</Link>
-        </div>
       </div>
       <SubmitButton />
     </form>

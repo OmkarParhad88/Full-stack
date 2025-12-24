@@ -7,7 +7,7 @@ function MainSection() {
   return (
     <div className='flex justify-center items-center h-screen w-full flex-col'>
       <div className='bg-white p-6 rounded-lg shadow-lg'>
-        <Image src="/Alone-cuate.svg" alt="Vercel Logo" width={300} height={600} />
+        <Image src="/Welcome-cuate.svg" alt="Vercel Logo" width={300} height={600} />
         <div className='flex justify-center items-center gap-4'>
           <Link href="/login">
             <Button>Sign In</Button>
