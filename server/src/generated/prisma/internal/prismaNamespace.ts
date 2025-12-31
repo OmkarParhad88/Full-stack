@@ -384,7 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  Fight: 'Fight'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "user" | "fight"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Fight: {
+      payload: Prisma.$FightPayload<ExtArgs>
+      fields: Prisma.FightFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FightFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FightFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>
+        }
+        findFirst: {
+          args: Prisma.FightFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FightFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>
+        }
+        findMany: {
+          args: Prisma.FightFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>[]
+        }
+        create: {
+          args: Prisma.FightCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>
+        }
+        createMany: {
+          args: Prisma.FightCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FightCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>[]
+        }
+        delete: {
+          args: Prisma.FightDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>
+        }
+        update: {
+          args: Prisma.FightUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>
+        }
+        deleteMany: {
+          args: Prisma.FightDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FightUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FightUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>[]
+        }
+        upsert: {
+          args: Prisma.FightUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightPayload>
+        }
+        aggregate: {
+          args: Prisma.FightAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFight>
+        }
+        groupBy: {
+          args: Prisma.FightGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FightGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FightCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FightCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -530,6 +605,19 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const FightScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  image: 'image',
+  expire_at: 'expire_at',
+  created_at: 'created_at'
+} as const
+
+export type FightScalarFieldEnum = (typeof FightScalarFieldEnum)[keyof typeof FightScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -713,6 +801,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  fight?: Prisma.FightOmit
 }
 
 /* Types for Logging */

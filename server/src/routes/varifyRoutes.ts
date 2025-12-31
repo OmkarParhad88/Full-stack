@@ -1,6 +1,5 @@
 import { Router, type Request, type Response } from "express";
 import prisma from "../config/database";
-import bcrypt from "bcrypt";
 import { renderEmail } from "../views/helper";
 const router = Router();
 
@@ -21,7 +20,7 @@ router.get("/verify-email", async (req: Request, res: Response) => {
     return res.redirect("/api/auth/verify/verify-error");
   }
 
-  const isVerified = await bcrypt.compare(token as string, user.email_verify_token as string);
+  const isVerified = await Bun.password.verify(token as string, user.email_verify_token as string);
 
   if (!isVerified) {
     return res.redirect("/api/auth/verify/verify-error");
@@ -36,7 +35,7 @@ router.get("/verify-email", async (req: Request, res: Response) => {
       email_verified_at: new Date().toISOString(),
     },
   });
-  res.redirect(`${process.env.FRONTEND_URL}/login`)
+  res.redirect(`${Bun.env.TEND_URL}/login`)
 });
 
 router.get("/verify-error", async (req: Request, res: Response) => {

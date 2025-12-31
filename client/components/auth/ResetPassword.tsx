@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { SubmitButton } from '../common/SubmitButton'
-import { useFormState } from 'react-dom'
+import { useActionState } from 'react';
 import { toast } from 'sonner'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -19,7 +19,7 @@ export default function ResetPassword() {
     message: '',
     errors: {}
   }
-  const [state, formAction] = useFormState(resetPasswordActions, initialState)
+  const [state, formAction] = useActionState(resetPasswordActions, initialState)
 
   useEffect(() => {
     if (state!.status === 500) {

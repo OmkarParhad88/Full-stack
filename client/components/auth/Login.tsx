@@ -6,7 +6,7 @@ import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { SubmitButton } from '../common/SubmitButton'
 import { toast } from 'sonner'
-import { useFormState } from 'react-dom'
+import { useActionState } from 'react';
 import { loginActions } from '@/actions/authActions'
 import { signIn } from 'next-auth/react'
 
@@ -18,7 +18,7 @@ export default function Login() {
     errors: {},
     data: {}
   }
-  const [state, formAction] = useFormState(loginActions, initialState)
+  const [state, formAction] = useActionState(loginActions, initialState)
 
   useEffect(() => {
     if (state!.status === 500) {

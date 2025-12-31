@@ -1,34 +1,18 @@
 import { LOGIN_URL } from "@/lib/apiEndPoints";
 import axios from "axios";
-import { DefaultSession, ISODateString, type AuthOptions } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import { User, type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-
-export type CustomSession = {
-  user?: CustomUser,
-  expires: ISODateString
-}
-
-export type CustomUser = {
-  id?: string | null;
-  name?: string | null;
-  email?: string | null;
-  token?: string | null;
-}
-
-
 
 export const authOptions: AuthOptions = {
   pages: {
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, token, user }: { session: CustomSession, token: JWT, user: CustomUser }) {
-      session.user = token.user as CustomUser
+    async session({ session, token, user }) {
+      session.user = token.user as User
       return session;
     },
-    async jwt({ token, user }: { token: JWT, user: CustomUser | null }) {
+    async jwt({ token, user }) {
       if (user) {
         token.user = user;
       }

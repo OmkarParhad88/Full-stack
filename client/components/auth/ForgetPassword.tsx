@@ -5,7 +5,7 @@ import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { SubmitButton } from '../common/SubmitButton'
 import { toast } from 'sonner'
-import { useFormState } from 'react-dom'
+import { useActionState } from 'react';
 import { forgetPasswordActions } from '@/actions/authActions'
 
 export default function ForgetPassword() {
@@ -14,7 +14,7 @@ export default function ForgetPassword() {
     message: '',
     errors: {},
   }
-  const [state, formAction] = useFormState(forgetPasswordActions, initialState)
+  const [state, formAction] = useActionState(forgetPasswordActions, initialState)
 
   useEffect(() => {
     if (state!.status === 500) {

@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="hydrated idc0_343">
-      <body className={cn(` min-h-screen bg-slate-100 ${geistSans.variable} ${geistMono.variable} antialiased`)}>
+      <body className={cn(`min-h-screen bg-slate-100 ${geistSans.variable} ${geistMono.variable} antialiased`)}>
         <Toaster richColors position="top-right" />
         {children}
       </body>

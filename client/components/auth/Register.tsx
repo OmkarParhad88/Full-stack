@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { SubmitButton } from '../common/SubmitButton'
-import { useFormState } from 'react-dom'
+import { useActionState } from 'react';
 import { toast } from 'sonner'
 
 export default function Register() {
@@ -14,7 +14,7 @@ export default function Register() {
     message: '',
     errors: {}
   }
-  const [state, formAction] = useFormState(registerActions, initialState)
+  const [state, formAction] = useActionState(registerActions, initialState)
 
   useEffect(() => {
     if (state!.status === 500) {

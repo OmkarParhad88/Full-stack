@@ -1,8 +1,8 @@
 import { type ConnectionOptions, type DefaultJobOptions } from "bullmq";
 
 export const redisConnection: ConnectionOptions = {
-  host: process.env.REDIS_HOST,
-  port: parseInt(process.env.REDIS_PORT || "6379"),
+  host: Bun.env.S_HOST,
+  port: parseInt(Bun.env.REDIS_PORT || "6379"),
 }
 
 export const defaultQueueOptions: DefaultJobOptions = {
