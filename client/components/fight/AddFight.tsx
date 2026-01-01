@@ -40,14 +40,14 @@ const AddFight = () => {
   const [state, formAction] = useActionState(createFightActions, initialState)
 
   useEffect(() => {
-    if (state!.status === 200) {
-      toast.success(state!.message)
+    if (state?.status === 200) {
+      toast.success(state?.message)
       clearCacheFight("dashboard")
       setOpen(false)
       return
-    } else {
+    } else if (state?.status === 500) {
       clearCacheFight("dashboard")
-      toast.error(state!.message)
+      toast.error(state?.message)
     }
   }, [state])
 
