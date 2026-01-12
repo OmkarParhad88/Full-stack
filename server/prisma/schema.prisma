@@ -21,12 +21,31 @@ model User {
 }
 
 model Fight {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      Int
-  title       String
-  description String
-  image       String
-  expire_at   DateTime
-  created_at  DateTime @default(now())
+  id             Int            @id @default(autoincrement())
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int
+  title          String
+  description    String
+  image          String
+  expire_at      DateTime
+  created_at     DateTime       @default(now())
+  fight_items    FightItem[]
+  fight_comments FightComment[]
+}
+
+model FightItem {
+  id         Int      @id @default(autoincrement())
+  fight      Fight    @relation(fields: [fightId], references: [id], onDelete: Cascade)
+  fightId    Int
+  image      String
+  count      Int      @default(0)
+  created_at DateTime @default(now())
+}
+
+model FightComment {
+  id         Int      @id @default(autoincrement())
+  fight      Fight    @relation(fields: [fightId], references: [id], onDelete: Cascade)
+  fightId    Int
+  comment    String
+  created_at DateTime @default(now())
 }

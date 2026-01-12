@@ -27,3 +27,13 @@ export type User = Prisma.UserModel
  * 
  */
 export type Fight = Prisma.FightModel
+/**
+ * Model FightItem
+ * 
+ */
+export type FightItem = Prisma.FightItemModel
+/**
+ * Model FightComment
+ * 
+ */
+export type FightComment = Prisma.FightCommentModel

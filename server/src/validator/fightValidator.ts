@@ -34,6 +34,11 @@ export const createFightSchema = z.object({
     .date({ error: "Expire date is required" })
 });
 
+export const createFightItemSchema = z.object({
+  fight_id: z.string({ error: "Fight ID is required" }),
+  images: multerFileSchema.array().length(2, { error: "You must upload exactly 2 images" }),
+});
+
 export const updateFightSchema = z.object({
   title: z
     .string({ error: "Title is required" })

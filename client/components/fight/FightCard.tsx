@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -9,6 +10,8 @@ import { getImageUrl } from "@/lib/utils";
 import Image from "next/image"
 import { FightCardProps } from "@/types";
 import FightCardMenu from "./FightCardMenu";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function FightCard({ fight, token }: { fight: FightCardProps, token: string }) {
   return (
@@ -24,7 +27,13 @@ export default function FightCard({ fight, token }: { fight: FightCardProps, tok
         {fight.image && <Image src={getImageUrl(fight.image)} alt={fight.image} width={500} height={500} className="w-full h-[250px] object-contain rounded-md " />}
         <p>Created at: {new Date(fight.created_at).toLocaleDateString()}</p>
         <p>Expire at: {new Date(fight.expire_at).toLocaleDateString()}</p>
+
       </CardContent>
+      <CardFooter>
+        <Link href={`/fight/items/${fight.id}`}>
+          <Button variant="outline">View</Button>
+        </Link>
+      </CardFooter>
     </Card>
   );
 }

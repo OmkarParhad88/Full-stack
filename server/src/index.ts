@@ -4,6 +4,7 @@ import router from "./routes";
 import { GlobalRateLimitter } from "./config/rate-limit";
 import cors from "cors";
 import path from "path";
+import { checkDatabaseConnection } from "./config/database";
 const app: Application = express();
 const PORT = Bun.env.PORT || 8000;
 
@@ -26,6 +27,8 @@ app.set("views", path.join(import.meta.dir, `views`));
 app.get("/", async (req: Request, res: Response) => {
   return res.send("Hello Wojiijrluuuhud!");
 });
+
+await checkDatabaseConnection();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

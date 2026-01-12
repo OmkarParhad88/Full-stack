@@ -237,6 +237,8 @@ export type FightWhereInput = {
   expire_at?: Prisma.DateTimeFilter<"Fight"> | Date | string
   created_at?: Prisma.DateTimeFilter<"Fight"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  fight_items?: Prisma.FightItemListRelationFilter
+  fight_comments?: Prisma.FightCommentListRelationFilter
 }
 
 export type FightOrderByWithRelationInput = {
@@ -248,6 +250,8 @@ export type FightOrderByWithRelationInput = {
   expire_at?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  fight_items?: Prisma.FightItemOrderByRelationAggregateInput
+  fight_comments?: Prisma.FightCommentOrderByRelationAggregateInput
 }
 
 export type FightWhereUniqueInput = Prisma.AtLeast<{
@@ -262,6 +266,8 @@ export type FightWhereUniqueInput = Prisma.AtLeast<{
   expire_at?: Prisma.DateTimeFilter<"Fight"> | Date | string
   created_at?: Prisma.DateTimeFilter<"Fight"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  fight_items?: Prisma.FightItemListRelationFilter
+  fight_comments?: Prisma.FightCommentListRelationFilter
 }, "id">
 
 export type FightOrderByWithAggregationInput = {
@@ -299,6 +305,8 @@ export type FightCreateInput = {
   expire_at: Date | string
   created_at?: Date | string
   user: Prisma.UserCreateNestedOneWithoutFightsInput
+  fight_items?: Prisma.FightItemCreateNestedManyWithoutFightInput
+  fight_comments?: Prisma.FightCommentCreateNestedManyWithoutFightInput
 }
 
 export type FightUncheckedCreateInput = {
@@ -309,6 +317,8 @@ export type FightUncheckedCreateInput = {
   image: string
   expire_at: Date | string
   created_at?: Date | string
+  fight_items?: Prisma.FightItemUncheckedCreateNestedManyWithoutFightInput
+  fight_comments?: Prisma.FightCommentUncheckedCreateNestedManyWithoutFightInput
 }
 
 export type FightUpdateInput = {
@@ -318,6 +328,8 @@ export type FightUpdateInput = {
   expire_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutFightsNestedInput
+  fight_items?: Prisma.FightItemUpdateManyWithoutFightNestedInput
+  fight_comments?: Prisma.FightCommentUpdateManyWithoutFightNestedInput
 }
 
 export type FightUncheckedUpdateInput = {
@@ -328,6 +340,8 @@ export type FightUncheckedUpdateInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   expire_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fight_items?: Prisma.FightItemUncheckedUpdateManyWithoutFightNestedInput
+  fight_comments?: Prisma.FightCommentUncheckedUpdateManyWithoutFightNestedInput
 }
 
 export type FightCreateManyInput = {
@@ -408,6 +422,11 @@ export type FightSumOrderByAggregateInput = {
   userId?: Prisma.SortOrder
 }
 
+export type FightScalarRelationFilter = {
+  is?: Prisma.FightWhereInput
+  isNot?: Prisma.FightWhereInput
+}
+
 export type FightCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.FightCreateWithoutUserInput, Prisma.FightUncheckedCreateWithoutUserInput> | Prisma.FightCreateWithoutUserInput[] | Prisma.FightUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.FightCreateOrConnectWithoutUserInput | Prisma.FightCreateOrConnectWithoutUserInput[]
@@ -450,12 +469,42 @@ export type FightUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.FightScalarWhereInput | Prisma.FightScalarWhereInput[]
 }
 
+export type FightCreateNestedOneWithoutFight_itemsInput = {
+  create?: Prisma.XOR<Prisma.FightCreateWithoutFight_itemsInput, Prisma.FightUncheckedCreateWithoutFight_itemsInput>
+  connectOrCreate?: Prisma.FightCreateOrConnectWithoutFight_itemsInput
+  connect?: Prisma.FightWhereUniqueInput
+}
+
+export type FightUpdateOneRequiredWithoutFight_itemsNestedInput = {
+  create?: Prisma.XOR<Prisma.FightCreateWithoutFight_itemsInput, Prisma.FightUncheckedCreateWithoutFight_itemsInput>
+  connectOrCreate?: Prisma.FightCreateOrConnectWithoutFight_itemsInput
+  upsert?: Prisma.FightUpsertWithoutFight_itemsInput
+  connect?: Prisma.FightWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FightUpdateToOneWithWhereWithoutFight_itemsInput, Prisma.FightUpdateWithoutFight_itemsInput>, Prisma.FightUncheckedUpdateWithoutFight_itemsInput>
+}
+
+export type FightCreateNestedOneWithoutFight_commentsInput = {
+  create?: Prisma.XOR<Prisma.FightCreateWithoutFight_commentsInput, Prisma.FightUncheckedCreateWithoutFight_commentsInput>
+  connectOrCreate?: Prisma.FightCreateOrConnectWithoutFight_commentsInput
+  connect?: Prisma.FightWhereUniqueInput
+}
+
+export type FightUpdateOneRequiredWithoutFight_commentsNestedInput = {
+  create?: Prisma.XOR<Prisma.FightCreateWithoutFight_commentsInput, Prisma.FightUncheckedCreateWithoutFight_commentsInput>
+  connectOrCreate?: Prisma.FightCreateOrConnectWithoutFight_commentsInput
+  upsert?: Prisma.FightUpsertWithoutFight_commentsInput
+  connect?: Prisma.FightWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FightUpdateToOneWithWhereWithoutFight_commentsInput, Prisma.FightUpdateWithoutFight_commentsInput>, Prisma.FightUncheckedUpdateWithoutFight_commentsInput>
+}
+
 export type FightCreateWithoutUserInput = {
   title: string
   description: string
   image: string
   expire_at: Date | string
   created_at?: Date | string
+  fight_items?: Prisma.FightItemCreateNestedManyWithoutFightInput
+  fight_comments?: Prisma.FightCommentCreateNestedManyWithoutFightInput
 }
 
 export type FightUncheckedCreateWithoutUserInput = {
@@ -465,6 +514,8 @@ export type FightUncheckedCreateWithoutUserInput = {
   image: string
   expire_at: Date | string
   created_at?: Date | string
+  fight_items?: Prisma.FightItemUncheckedCreateNestedManyWithoutFightInput
+  fight_comments?: Prisma.FightCommentUncheckedCreateNestedManyWithoutFightInput
 }
 
 export type FightCreateOrConnectWithoutUserInput = {
@@ -506,6 +557,122 @@ export type FightScalarWhereInput = {
   created_at?: Prisma.DateTimeFilter<"Fight"> | Date | string
 }
 
+export type FightCreateWithoutFight_itemsInput = {
+  title: string
+  description: string
+  image: string
+  expire_at: Date | string
+  created_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutFightsInput
+  fight_comments?: Prisma.FightCommentCreateNestedManyWithoutFightInput
+}
+
+export type FightUncheckedCreateWithoutFight_itemsInput = {
+  id?: number
+  userId: number
+  title: string
+  description: string
+  image: string
+  expire_at: Date | string
+  created_at?: Date | string
+  fight_comments?: Prisma.FightCommentUncheckedCreateNestedManyWithoutFightInput
+}
+
+export type FightCreateOrConnectWithoutFight_itemsInput = {
+  where: Prisma.FightWhereUniqueInput
+  create: Prisma.XOR<Prisma.FightCreateWithoutFight_itemsInput, Prisma.FightUncheckedCreateWithoutFight_itemsInput>
+}
+
+export type FightUpsertWithoutFight_itemsInput = {
+  update: Prisma.XOR<Prisma.FightUpdateWithoutFight_itemsInput, Prisma.FightUncheckedUpdateWithoutFight_itemsInput>
+  create: Prisma.XOR<Prisma.FightCreateWithoutFight_itemsInput, Prisma.FightUncheckedCreateWithoutFight_itemsInput>
+  where?: Prisma.FightWhereInput
+}
+
+export type FightUpdateToOneWithWhereWithoutFight_itemsInput = {
+  where?: Prisma.FightWhereInput
+  data: Prisma.XOR<Prisma.FightUpdateWithoutFight_itemsInput, Prisma.FightUncheckedUpdateWithoutFight_itemsInput>
+}
+
+export type FightUpdateWithoutFight_itemsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  expire_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutFightsNestedInput
+  fight_comments?: Prisma.FightCommentUpdateManyWithoutFightNestedInput
+}
+
+export type FightUncheckedUpdateWithoutFight_itemsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  expire_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fight_comments?: Prisma.FightCommentUncheckedUpdateManyWithoutFightNestedInput
+}
+
+export type FightCreateWithoutFight_commentsInput = {
+  title: string
+  description: string
+  image: string
+  expire_at: Date | string
+  created_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutFightsInput
+  fight_items?: Prisma.FightItemCreateNestedManyWithoutFightInput
+}
+
+export type FightUncheckedCreateWithoutFight_commentsInput = {
+  id?: number
+  userId: number
+  title: string
+  description: string
+  image: string
+  expire_at: Date | string
+  created_at?: Date | string
+  fight_items?: Prisma.FightItemUncheckedCreateNestedManyWithoutFightInput
+}
+
+export type FightCreateOrConnectWithoutFight_commentsInput = {
+  where: Prisma.FightWhereUniqueInput
+  create: Prisma.XOR<Prisma.FightCreateWithoutFight_commentsInput, Prisma.FightUncheckedCreateWithoutFight_commentsInput>
+}
+
+export type FightUpsertWithoutFight_commentsInput = {
+  update: Prisma.XOR<Prisma.FightUpdateWithoutFight_commentsInput, Prisma.FightUncheckedUpdateWithoutFight_commentsInput>
+  create: Prisma.XOR<Prisma.FightCreateWithoutFight_commentsInput, Prisma.FightUncheckedCreateWithoutFight_commentsInput>
+  where?: Prisma.FightWhereInput
+}
+
+export type FightUpdateToOneWithWhereWithoutFight_commentsInput = {
+  where?: Prisma.FightWhereInput
+  data: Prisma.XOR<Prisma.FightUpdateWithoutFight_commentsInput, Prisma.FightUncheckedUpdateWithoutFight_commentsInput>
+}
+
+export type FightUpdateWithoutFight_commentsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  expire_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutFightsNestedInput
+  fight_items?: Prisma.FightItemUpdateManyWithoutFightNestedInput
+}
+
+export type FightUncheckedUpdateWithoutFight_commentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.StringFieldUpdateOperationsInput | string
+  expire_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fight_items?: Prisma.FightItemUncheckedUpdateManyWithoutFightNestedInput
+}
+
 export type FightCreateManyUserInput = {
   id?: number
   title: string
@@ -521,6 +688,8 @@ export type FightUpdateWithoutUserInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   expire_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fight_items?: Prisma.FightItemUpdateManyWithoutFightNestedInput
+  fight_comments?: Prisma.FightCommentUpdateManyWithoutFightNestedInput
 }
 
 export type FightUncheckedUpdateWithoutUserInput = {
@@ -530,6 +699,8 @@ export type FightUncheckedUpdateWithoutUserInput = {
   image?: Prisma.StringFieldUpdateOperationsInput | string
   expire_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fight_items?: Prisma.FightItemUncheckedUpdateManyWithoutFightNestedInput
+  fight_comments?: Prisma.FightCommentUncheckedUpdateManyWithoutFightNestedInput
 }
 
 export type FightUncheckedUpdateManyWithoutUserInput = {
@@ -542,6 +713,44 @@ export type FightUncheckedUpdateManyWithoutUserInput = {
 }
 
 
+/**
+ * Count Type FightCountOutputType
+ */
+
+export type FightCountOutputType = {
+  fight_items: number
+  fight_comments: number
+}
+
+export type FightCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  fight_items?: boolean | FightCountOutputTypeCountFight_itemsArgs
+  fight_comments?: boolean | FightCountOutputTypeCountFight_commentsArgs
+}
+
+/**
+ * FightCountOutputType without action
+ */
+export type FightCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FightCountOutputType
+   */
+  select?: Prisma.FightCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * FightCountOutputType without action
+ */
+export type FightCountOutputTypeCountFight_itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FightItemWhereInput
+}
+
+/**
+ * FightCountOutputType without action
+ */
+export type FightCountOutputTypeCountFight_commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FightCommentWhereInput
+}
+
 
 export type FightSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -552,6 +761,9 @@ export type FightSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   expire_at?: boolean
   created_at?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  fight_items?: boolean | Prisma.Fight$fight_itemsArgs<ExtArgs>
+  fight_comments?: boolean | Prisma.Fight$fight_commentsArgs<ExtArgs>
+  _count?: boolean | Prisma.FightCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fight"]>
 
 export type FightSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -589,6 +801,9 @@ export type FightSelectScalar = {
 export type FightOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "description" | "image" | "expire_at" | "created_at", ExtArgs["result"]["fight"]>
 export type FightInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  fight_items?: boolean | Prisma.Fight$fight_itemsArgs<ExtArgs>
+  fight_comments?: boolean | Prisma.Fight$fight_commentsArgs<ExtArgs>
+  _count?: boolean | Prisma.FightCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FightIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -601,6 +816,8 @@ export type $FightPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Fight"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    fight_items: Prisma.$FightItemPayload<ExtArgs>[]
+    fight_comments: Prisma.$FightCommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1005,6 +1222,8 @@ readonly fields: FightFieldRefs;
 export interface Prisma__FightClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  fight_items<T extends Prisma.Fight$fight_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Fight$fight_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FightItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fight_comments<T extends Prisma.Fight$fight_commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Fight$fight_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FightCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1434,6 +1653,54 @@ export type FightDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Fights to delete.
    */
   limit?: number
+}
+
+/**
+ * Fight.fight_items
+ */
+export type Fight$fight_itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FightItem
+   */
+  select?: Prisma.FightItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FightItem
+   */
+  omit?: Prisma.FightItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FightItemInclude<ExtArgs> | null
+  where?: Prisma.FightItemWhereInput
+  orderBy?: Prisma.FightItemOrderByWithRelationInput | Prisma.FightItemOrderByWithRelationInput[]
+  cursor?: Prisma.FightItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FightItemScalarFieldEnum | Prisma.FightItemScalarFieldEnum[]
+}
+
+/**
+ * Fight.fight_comments
+ */
+export type Fight$fight_commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FightComment
+   */
+  select?: Prisma.FightCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FightComment
+   */
+  omit?: Prisma.FightCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FightCommentInclude<ExtArgs> | null
+  where?: Prisma.FightCommentWhereInput
+  orderBy?: Prisma.FightCommentOrderByWithRelationInput | Prisma.FightCommentOrderByWithRelationInput[]
+  cursor?: Prisma.FightCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FightCommentScalarFieldEnum | Prisma.FightCommentScalarFieldEnum[]
 }
 
 /**

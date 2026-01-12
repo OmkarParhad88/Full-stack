@@ -10,4 +10,6 @@
  */
 export type * from './models/User.ts'
 export type * from './models/Fight.ts'
+export type * from './models/FightItem.ts'
+export type * from './models/FightComment.ts'
 export type * from './commonInputTypes.ts'

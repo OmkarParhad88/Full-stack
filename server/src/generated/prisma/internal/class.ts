@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id                   Int       @id @default(autoincrement())\n  name                 String    @db.VarChar(200)\n  email                String    @unique\n  password             String\n  password_reset_token String?\n  token_send_at        DateTime?\n  email_verify_token   String?\n  email_verified_at    DateTime?\n  created_at           DateTime  @default(now())\n  fights               Fight[]\n}\n\nmodel Fight {\n  id          Int      @id @default(autoincrement())\n  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId      Int\n  title       String\n  description String\n  image       String\n  expire_at   DateTime\n  created_at  DateTime @default(now())\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id                   Int       @id @default(autoincrement())\n  name                 String    @db.VarChar(200)\n  email                String    @unique\n  password             String\n  password_reset_token String?\n  token_send_at        DateTime?\n  email_verify_token   String?\n  email_verified_at    DateTime?\n  created_at           DateTime  @default(now())\n  fights               Fight[]\n}\n\nmodel Fight {\n  id             Int            @id @default(autoincrement())\n  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId         Int\n  title          String\n  description    String\n  image          String\n  expire_at      DateTime\n  created_at     DateTime       @default(now())\n  fight_items    FightItem[]\n  fight_comments FightComment[]\n}\n\nmodel FightItem {\n  id         Int      @id @default(autoincrement())\n  fight      Fight    @relation(fields: [fightId], references: [id], onDelete: Cascade)\n  fightId    Int\n  image      String\n  count      Int      @default(0)\n  created_at DateTime @default(now())\n}\n\nmodel FightComment {\n  id         Int      @id @default(autoincrement())\n  fight      Fight    @relation(fields: [fightId], references: [id], onDelete: Cascade)\n  fightId    Int\n  comment    String\n  created_at DateTime @default(now())\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password_reset_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token_send_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"email_verify_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email_verified_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"fights\",\"kind\":\"object\",\"type\":\"Fight\",\"relationName\":\"FightToUser\"}],\"dbName\":null},\"Fight\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FightToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expire_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password_reset_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token_send_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"email_verify_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email_verified_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"fights\",\"kind\":\"object\",\"type\":\"Fight\",\"relationName\":\"FightToUser\"}],\"dbName\":null},\"Fight\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FightToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expire_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"fight_items\",\"kind\":\"object\",\"type\":\"FightItem\",\"relationName\":\"FightToFightItem\"},{\"name\":\"fight_comments\",\"kind\":\"object\",\"type\":\"FightComment\",\"relationName\":\"FightToFightComment\"}],\"dbName\":null},\"FightItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fight\",\"kind\":\"object\",\"type\":\"Fight\",\"relationName\":\"FightToFightItem\"},{\"name\":\"fightId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"FightComment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fight\",\"kind\":\"object\",\"type\":\"Fight\",\"relationName\":\"FightToFightComment\"},{\"name\":\"fightId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -193,6 +193,26 @@ export interface PrismaClient<
     * ```
     */
   get fight(): Prisma.FightDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.fightItem`: Exposes CRUD operations for the **FightItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FightItems
+    * const fightItems = await prisma.fightItem.findMany()
+    * ```
+    */
+  get fightItem(): Prisma.FightItemDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.fightComment`: Exposes CRUD operations for the **FightComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FightComments
+    * const fightComments = await prisma.fightComment.findMany()
+    * ```
+    */
+  get fightComment(): Prisma.FightCommentDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

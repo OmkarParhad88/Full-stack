@@ -52,7 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Fight: 'Fight'
+  Fight: 'Fight',
+  FightItem: 'FightItem',
+  FightComment: 'FightComment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -97,6 +99,27 @@ export const FightScalarFieldEnum = {
 } as const
 
 export type FightScalarFieldEnum = (typeof FightScalarFieldEnum)[keyof typeof FightScalarFieldEnum]
+
+
+export const FightItemScalarFieldEnum = {
+  id: 'id',
+  fightId: 'fightId',
+  image: 'image',
+  count: 'count',
+  created_at: 'created_at'
+} as const
+
+export type FightItemScalarFieldEnum = (typeof FightItemScalarFieldEnum)[keyof typeof FightItemScalarFieldEnum]
+
+
+export const FightCommentScalarFieldEnum = {
+  id: 'id',
+  fightId: 'fightId',
+  comment: 'comment',
+  created_at: 'created_at'
+} as const
+
+export type FightCommentScalarFieldEnum = (typeof FightCommentScalarFieldEnum)[keyof typeof FightCommentScalarFieldEnum]
 
 
 export const SortOrder = {

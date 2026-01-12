@@ -385,7 +385,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Fight: 'Fight'
+  Fight: 'Fight',
+  FightItem: 'FightItem',
+  FightComment: 'FightComment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "fight"
+    modelProps: "user" | "fight" | "fightItem" | "fightComment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +555,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FightItem: {
+      payload: Prisma.$FightItemPayload<ExtArgs>
+      fields: Prisma.FightItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FightItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FightItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>
+        }
+        findFirst: {
+          args: Prisma.FightItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FightItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>
+        }
+        findMany: {
+          args: Prisma.FightItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>[]
+        }
+        create: {
+          args: Prisma.FightItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>
+        }
+        createMany: {
+          args: Prisma.FightItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FightItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>[]
+        }
+        delete: {
+          args: Prisma.FightItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>
+        }
+        update: {
+          args: Prisma.FightItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.FightItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FightItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FightItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.FightItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightItemPayload>
+        }
+        aggregate: {
+          args: Prisma.FightItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFightItem>
+        }
+        groupBy: {
+          args: Prisma.FightItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FightItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FightItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FightItemCountAggregateOutputType> | number
+        }
+      }
+    }
+    FightComment: {
+      payload: Prisma.$FightCommentPayload<ExtArgs>
+      fields: Prisma.FightCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FightCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FightCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.FightCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FightCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>
+        }
+        findMany: {
+          args: Prisma.FightCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>[]
+        }
+        create: {
+          args: Prisma.FightCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>
+        }
+        createMany: {
+          args: Prisma.FightCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FightCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.FightCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>
+        }
+        update: {
+          args: Prisma.FightCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.FightCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FightCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FightCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.FightCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FightCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.FightCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFightComment>
+        }
+        groupBy: {
+          args: Prisma.FightCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FightCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FightCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FightCommentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -618,6 +768,27 @@ export const FightScalarFieldEnum = {
 } as const
 
 export type FightScalarFieldEnum = (typeof FightScalarFieldEnum)[keyof typeof FightScalarFieldEnum]
+
+
+export const FightItemScalarFieldEnum = {
+  id: 'id',
+  fightId: 'fightId',
+  image: 'image',
+  count: 'count',
+  created_at: 'created_at'
+} as const
+
+export type FightItemScalarFieldEnum = (typeof FightItemScalarFieldEnum)[keyof typeof FightItemScalarFieldEnum]
+
+
+export const FightCommentScalarFieldEnum = {
+  id: 'id',
+  fightId: 'fightId',
+  comment: 'comment',
+  created_at: 'created_at'
+} as const
+
+export type FightCommentScalarFieldEnum = (typeof FightCommentScalarFieldEnum)[keyof typeof FightCommentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -802,6 +973,8 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   fight?: Prisma.FightOmit
+  fightItem?: Prisma.FightItemOmit
+  fightComment?: Prisma.FightCommentOmit
 }
 
 /* Types for Logging */

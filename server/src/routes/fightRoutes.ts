@@ -1,13 +1,15 @@
 import { Router, type Request, type Response } from "express";
 import prisma from "../config/database";
 import { type ZodError } from "zod";
-import { createFightSchema, updateFightSchema } from "../validator/fightValidator";
+import { createFightItemSchema, createFightSchema, updateFightSchema } from "../validator/fightValidator";
 import { deleteFile, upload } from "../config/fileSystem";
 import { formatError } from "../views/helper";
 import { PrismaClientInitializationError, PrismaClientKnownRequestError } from "@prisma/client/runtime/wasm-compiler-edge";
-const router = Router();
+import AuthMiddleware from "../middleware/AuthMiddleware";
+import type Multer from "multer";
+const router: Router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", AuthMiddleware, async (req: Request, res: Response) => {
   try {
     const fightes = await prisma.fight.findMany({
       where: {
@@ -29,6 +31,26 @@ router.get("/:id", async (req: Request, res: Response) => {
     const fight = await prisma.fight.findUnique({
       where: {
         id: Number(req.params?.id)
+      },
+      include: {
+        fight_items: {
+          select: {
+            image: true,
+            id: true,
+            fightId: true,
+            count: true
+          }
+        },
+        fight_comments: {
+          select: {
+            comment: true,
+            id: true,
+            fightId: true
+          },
+          orderBy: {
+            id: "desc"
+          }
+        }
       }
     });
     return res.status(200).json({ status: 200, message: "fight fetched successfully", fight });
@@ -38,7 +60,7 @@ router.get("/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.put("/:id", upload.single('image'), async (req: Request, res: Response) => {
+router.put("/:id", AuthMiddleware, upload.single('image'), async (req: Request, res: Response) => {
   try {
     const body = req.body;
     const file = req.file;
@@ -86,7 +108,7 @@ router.put("/:id", upload.single('image'), async (req: Request, res: Response) =
   }
 });
 
-router.delete("/:id", async (req: Request, res: Response) => {
+router.delete("/:id", AuthMiddleware, async (req: Request, res: Response) => {
   try {
     const fight = await prisma.fight.findUnique({
       where: {
@@ -113,34 +135,67 @@ router.delete("/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/", upload.single('image'), async (req: Request, res: Response) => {
+router.post("/", AuthMiddleware, upload.single('image'), async (req: Request, res: Response) => {
   try {
     const body = req.body;
     const file = req.file;
-    const data = {
+    const user = req.user;
+
+    const payload = createFightSchema.safeParse({
       title: body.title,
       description: body.description,
       expire_at: new Date(body.expire_at),
       image: file
-    }
-    const payload = createFightSchema.safeParse(data);
+    });
 
     if (!payload.success) {
       const error = payload.error as ZodError;
       return res.status(422).json({ status: 422, message: "Validation Error", errors: formatError(error) });
     }
-    const user = req.user;
     const fight = await prisma.fight.create({
       data: {
         ...payload.data,
-        user: {
-          connect: {
-            id: Number(user?.id)
-          }
-        }
+        userId: Number(user?.id)
       }
     });
     return res.status(200).json({ status: 200, message: "fight created successfully", fight });
+  } catch (error) {
+    if (error instanceof PrismaClientInitializationError) {
+      return res.status(400).json({ status: 400, message: "Prisma Client Initialization Error", error: error });
+    }
+    console.log(error);
+    res.status(500).json({ status: 500, message: "Internal Server Error", error: error });
+  }
+});
+
+router.post("/items", AuthMiddleware, upload.array('images[]'), async (req: Request, res: Response) => {
+  try {
+    const { fight_id } = req.body;
+    const images = req.files;
+    const user = req.user;
+
+    let imageErrors: String[] = [];
+
+    const payload = createFightItemSchema.safeParse({
+      fight_id: fight_id,
+      images: images
+    });
+
+    if (!payload.success) {
+      const error = payload.error as ZodError;
+      error.issues?.forEach((issue) => {
+        imageErrors.push(issue.message);
+      });
+      return res.status(422).json({ status: 422, message: "Validation Error", errors: imageErrors });
+    }
+
+    const fight = await prisma.fightItem.createMany({
+      data: payload.data.images.map((image) => ({
+        image: image,
+        fightId: Number(payload.data.fight_id)
+      }))
+    });
+    return res.status(200).json({ status: 200, message: "fight item created successfully", fight });
   } catch (error) {
     if (error instanceof PrismaClientInitializationError) {
       return res.status(400).json({ status: 400, message: "Prisma Client Initialization Error", error: error });
