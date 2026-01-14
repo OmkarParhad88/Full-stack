@@ -1,0 +1,26 @@
+services:
+  # --- REDIS with RedisInsight ---
+  redis:
+    image: redis/redis-stack:latest
+    container_name: rdis-stack
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    restart: always
+
+  # --- POSTGRESQL ---
+  postgres:
+    image: postgres:14.20-alpine3.23
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: omkar123
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:

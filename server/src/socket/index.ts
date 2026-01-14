@@ -1,6 +1,6 @@
 
 import type { Server } from "socket.io";
-import { votingQueue, votingQueueName } from "../jobs/votingJob";
+import { votingQueue, votingQueueName } from "../jobs/VotingJob";
 import { commentQueue, commentQueueName } from "../jobs/CommetJob";
 
 export function setupSocket(io: Server) {
