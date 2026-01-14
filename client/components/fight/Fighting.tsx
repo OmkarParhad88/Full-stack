@@ -5,12 +5,19 @@ import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
 import CountUp from "react-countup";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
+import { ThumbsUp } from "lucide-react";
 import socket from "@/lib/socket";
+import { toast } from "sonner";
 
-export default function ViewFightItem({ fight }: { fight: FightCardProps }) {
 
-  const [fightComments, setFightComments] = useState<FightComment[]>(fight.fight_comments)
+export default function Fighting({ fight }: { fight: FightCardProps }) {
+
   const [fightItems, setFightItems] = useState<FightItem[]>(fight.fight_items)
+  const [fightComments, setFightComments] = useState<FightComment[]>(fight.fight_comments)
+  const [comment, setComment] = useState<string>("")
+  const [hideVote, setHideVote] = useState(false)
 
   useEffect(() => {
     const eventName = `fighting-${fight.id}`;
@@ -26,6 +33,37 @@ export default function ViewFightItem({ fight }: { fight: FightCardProps }) {
     });
   }, [fight.id]);
 
+
+  const handleVote = (id: number) => {
+    if (fightItems && fightItems.length > 0) {
+      setHideVote(true);
+      updateCounter(id);
+
+      //socket
+      socket.emit(`fighting-${fight.id}`, {
+        fightId: fight.id,
+        fightItemsId: id
+      })
+    }
+  }
+
+  const handleSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (comment.length > 2) {
+      const payload = {
+        fightId: fight.id,
+        comment: comment,
+        created_at: new Date().toISOString(),
+      }
+      socket.emit(`fighting_comment-${fight.id}`, payload)
+      updateComment(payload)
+    } else {
+      toast.warning("Comment must be at least 3 characters long")
+      setComment("")
+    }
+
+
+  }
 
   const updateCounter = (id: number) => {
     setFightItems((prevItems) => {
@@ -47,9 +85,6 @@ export default function ViewFightItem({ fight }: { fight: FightCardProps }) {
       return comments;
     });
   };
-
-
-
   return (
     <div className="mt-4">
       <div className="flex flex-wrap lg:flex-nowrap items-center justify-between">
@@ -61,7 +96,13 @@ export default function ViewFightItem({ fight }: { fight: FightCardProps }) {
                 </div>}
               </div>
 
-              <CountUp start={0} end={100} duration={0.5} className="text-5xl font-extrabold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent" />
+              {hideVote ? <CountUp start={0} end={item.count} duration={0.5} className="text-5xl font-extrabold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent" />
+                :
+                <Button onClick={() => handleVote(item.id)}>
+                  <span>Vote </span> <ThumbsUp />
+                </Button>}
+
+
             </div>
 
             {index % 2 === 0 && (
@@ -72,6 +113,12 @@ export default function ViewFightItem({ fight }: { fight: FightCardProps }) {
           </Fragment>
         ))}
       </div>
+      <form onSubmit={handleSubmitComment} className="mt-4 w-full">
+        <Textarea placeholder="Type comment here....." value={comment} onChange={(e) => setComment(e.target.value)} />
+        <Button type="submit" className="mt-4 w-full">Add Comment</Button>
+      </form>
+
+
       <div className="mt-4">
         {fightComments && fightComments.length > 0 && fightComments.map((comment, index) => {
           return (

@@ -31,8 +31,8 @@ export interface FightItem {
 }
 
 export interface FightComment {
-  id: number;
+  id?: number;
   fightId: number;
   comment: string;
-  createdAt: string;
+  created_at: string;
 }

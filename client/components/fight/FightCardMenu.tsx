@@ -12,10 +12,17 @@ import { Suspense, useState } from "react"
 const EditFight = dynamic(() => import("./EditFight"))
 import { FightCardProps } from "@/types"
 import DeleteFight from "./DeleteFight"
+import { toast } from "sonner"
+import { Env } from "@/lib/env"
 
 export default function FightCardMenu({ fight, token }: { fight: FightCardProps, token: string }) {
   const [open, setOpen] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(`${Env.APP_URL}/fight/${fight.id}`)
+    toast.success("Link copied to clipboard")
+  }
 
   return (
     <>
@@ -33,7 +40,7 @@ export default function FightCardMenu({ fight, token }: { fight: FightCardProps,
           <DropdownMenuItem onClick={() => setOpen(true)}>
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleCopy}>
             Copy Link
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpenDelete(true)}>
